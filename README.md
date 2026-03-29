@@ -1,94 +1,29 @@
-Student Enrollment System
-Project Overview
+The Student Enrollment System is a Java desktop application that helps manage students, courses, and enrollments in a school. It connects to a MySQL database to store all data.
 
-The Student Enrollment System is a Java Swing desktop application for managing:
-
-Students – add, update, delete, and view student information.
-Courses – add, update, delete, and view course information.
-Enrollments – enroll students in courses, view enrollments, and delete enrollments.
-
-All data is stored in a MySQL database.
-
-Project Structure
-Student_Enrollment_System/
-├── src/
-│   └── student_enrollment_system/
-│       ├── StudentForm.java       # Main GUI class
-│       ├── DBConnection.java      # Database connection helper
-│       └── ... other helper classes ...
-├── lib/
-│   └── mysql-connector-java-<version>.jar  # MySQL JDBC Driver
-├── build/
-├── StudentEnrollmentDB.sql        # SQL schema for database
-└── README.md
-src/ – Contains all Java source code files.
-lib/ – External libraries such as the MySQL JDBC driver.
-build/ – Auto-generated compiled classes.
-StudentEnrollmentDB.sql – MySQL script to create the database and tables.
-Database Setup
-Open MySQL Workbench (or any MySQL client).
-Run the SQL script StudentEnrollmentDB.sql to create the database and tables:
--- Create database
-CREATE DATABASE IF NOT EXISTS StudentEnrollmentDB;
-USE StudentEnrollmentDB;
-
--- Students Table
-CREATE TABLE IF NOT EXISTS students (
-    idstudents INT NOT NULL AUTO_INCREMENT,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    age INT NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    PRIMARY KEY (idstudents)
-);
-
--- Courses Table
-CREATE TABLE IF NOT EXISTS courses (
-    idcourse INT NOT NULL AUTO_INCREMENT,
-    course_name VARCHAR(100) NOT NULL,
-    description TEXT,
-    credits INT NOT NULL,
-    PRIMARY KEY (idcourse)
-);
-
--- Enrollments Table
-CREATE TABLE IF NOT EXISTS enrollments (
-    idenrollment INT NOT NULL AUTO_INCREMENT,
-    student_id INT NOT NULL,
-    course_id INT NOT NULL,
-    enrollment_date DATE DEFAULT CURRENT_DATE,
-    PRIMARY KEY (idenrollment),
-    FOREIGN KEY (student_id) REFERENCES students(idstudents),
-    FOREIGN KEY (course_id) REFERENCES courses(idcourse)
-);
-Make sure the DB username/password in DBConnection.java matches your MySQL setup:
-private static final String URL = "jdbc:mysql://localhost:3306/StudentEnrollmentDB";
-private static final String USER = "root";
-private static final String PASS = "your_password";
-Dependencies
-Java JDK 24 or higher
-NetBeans IDE (or any Java IDE)
-MySQL Server
-MySQL JDBC Driver (mysql-connector-java-<version>.jar)
-
-Make sure the JDBC driver is added to the project Libraries in NetBeans.
-
-Running the Application
-Open the project in NetBeans.
-Ensure MySQL server is running.
-Clean and Build the project.
-Run the project using F6 or the green Run button.
-The GUI will open, centered on the screen and resizable.
-Features
-Students
-Add, update, delete, and view students.
-Search by student ID.
-Courses
-Add, update, delete, and view courses.
-Search by course ID.
-Enrollments
+Key Features:
+Student Management
+Add new students with their name, age, and email.
+Update student details.
+Delete students from the system.
+View all students or search by student ID.
+Course Management
+Add new courses with a name, description, and number of credits.
+Update course details.
+Delete courses.
+View all courses or search by course ID.
+Enrollment Management
 Enroll students in courses.
-View all enrollments.
+View all enrollments in a table with student name, course name, and enrollment date.
 Delete enrollments.
-Combo box populated with courses from the database.
-Search enrollments by enrollment ID.
+Use a combo box to select courses when enrolling a student.
+Database Structure:
+Students Table – stores student information (ID, name, age, email).
+Courses Table – stores course information (ID, name, description, credits).
+Enrollments Table – links students and courses using foreign keys and stores the enrollment date.
+GUI Behavior:
+All tables (JTable) show all data by default.
+"View/Show" buttons filter data by ID.
+Enrollment panel allows selecting a student and a course to enroll.
+GUI is resizable and centered on the screen.
+
+Purpose: This system helps teachers or administrators easily manage students, courses, and course enrollments without manually handling spreadsheets or paper records.
